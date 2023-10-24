@@ -7,16 +7,21 @@ namespace PortalIpalEscalas.Domain
 {
     public class AuthService : IAuthService
     {
-        public AuthService()
+        private readonly IAccountContext accountContext;
+        public AuthService(IAccountContext _accountContext)
         {
-
+            this.accountContext = _accountContext;
         }
 
 
-        public  Task<ObjectResponse<RegisterResponse>> UserRegister(RegisterResponse request)
+        public async Task<ObjectResponse<RegisterResponse>> UserRegister(RegisterResponse request)
         {
             var result = new ObjectResponse<RegisterResponse>();
-            return Task.FromResult(result);
+
+            var getValues = await accountContext.UserRegister(request);
+
+
+            return result;
         }
 
 

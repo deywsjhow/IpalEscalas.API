@@ -9,7 +9,7 @@ public class RegisterResponse
     public string attribuation { get; set; }
     public string voiceType { get; set; }
     public string Instrument { get; set; }
-    public string? secondInstrument { get; set; }
+    public string secondInstrument { get; set; }
 
 
 }
