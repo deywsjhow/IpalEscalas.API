@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.15" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\PortalIpalEscalas.Common\PortalIpalEscalas.Common.csproj" />
+		<ProjectReference Include="..\PortalIpalEscalas.Infraestructure\PortalIpalEscalas.Infraestructure.csproj" />
+	</ItemGroup>
+</Project>

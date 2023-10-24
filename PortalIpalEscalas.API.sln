@@ -3,7 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortalIpalEscalas.API", "PortalIpalEscalas.API\PortalIpalEscalas.API.csproj", "{487EE064-6F78-4296-B4D7-F0878327D272}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PortalIpalEscalas.API", "PortalIpalEscalas.API\PortalIpalEscalas.API.csproj", "{487EE064-6F78-4296-B4D7-F0878327D272}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{1C090556-C254-4119-AD42-ECFC3B8BF234}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PortalIpalEscalas.Domain", "PortalIpalEscalas.Domain\PortalIpalEscalas.Domain.csproj", "{8162A8E2-E3A2-4E92-B520-9E2198D31947}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{48965064-A88C-474E-A0F3-38C893A1C3C9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PortalIpalEscalas.Infraestructure", "PortalIpalEscalas.Infraestructure\PortalIpalEscalas.Infraestructure.csproj", "{983F901E-8262-4789-A35B-425EDE544E52}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", "{2D6B88A2-52F4-4632-8472-78144DDDC168}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PortalIpalEscalas.Repository", "PortalIpalEscalas.Repository\PortalIpalEscalas.Repository.csproj", "{0B86F192-EF39-48CB-BD93-CA258DB820A7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{FED99BC1-A83C-4559-9D08-6CCB12F56A8A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PortalIpalEscalas.Common", "PortalIpalEscalas.Common\PortalIpalEscalas.Common.csproj", "{DFC395D8-368C-4856-B994-4BA26683FCF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +31,31 @@ Global
 		{487EE064-6F78-4296-B4D7-F0878327D272}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{487EE064-6F78-4296-B4D7-F0878327D272}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{487EE064-6F78-4296-B4D7-F0878327D272}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8162A8E2-E3A2-4E92-B520-9E2198D31947}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8162A8E2-E3A2-4E92-B520-9E2198D31947}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8162A8E2-E3A2-4E92-B520-9E2198D31947}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8162A8E2-E3A2-4E92-B520-9E2198D31947}.Release|Any CPU.Build.0 = Release|Any CPU
+		{983F901E-8262-4789-A35B-425EDE544E52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{983F901E-8262-4789-A35B-425EDE544E52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{983F901E-8262-4789-A35B-425EDE544E52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{983F901E-8262-4789-A35B-425EDE544E52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B86F192-EF39-48CB-BD93-CA258DB820A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B86F192-EF39-48CB-BD93-CA258DB820A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B86F192-EF39-48CB-BD93-CA258DB820A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B86F192-EF39-48CB-BD93-CA258DB820A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFC395D8-368C-4856-B994-4BA26683FCF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFC395D8-368C-4856-B994-4BA26683FCF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFC395D8-368C-4856-B994-4BA26683FCF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFC395D8-368C-4856-B994-4BA26683FCF1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8162A8E2-E3A2-4E92-B520-9E2198D31947} = {1C090556-C254-4119-AD42-ECFC3B8BF234}
+		{983F901E-8262-4789-A35B-425EDE544E52} = {48965064-A88C-474E-A0F3-38C893A1C3C9}
+		{0B86F192-EF39-48CB-BD93-CA258DB820A7} = {2D6B88A2-52F4-4632-8472-78144DDDC168}
+		{DFC395D8-368C-4856-B994-4BA26683FCF1} = {FED99BC1-A83C-4559-9D08-6CCB12F56A8A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2A587D17-59E0-44DD-B443-36CDE7EDA508}
