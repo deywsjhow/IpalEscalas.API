@@ -18,4 +18,8 @@ public class InternalError
         this.message = message;
         Description = description;
     }
+    public InternalError(string description)
+    {
+        Description = description;
+    }
 }

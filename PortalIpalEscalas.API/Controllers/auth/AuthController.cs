@@ -8,15 +8,12 @@ using Microsoft.AspNetCore.Http;
 namespace PortalIpalEscalas.API.Controllers.auth
 {
     [ApiController]
-    [Route("/auth")]
+    [Route("auth/")]
     public class AuthController : ControllerBase
-    {
-
-        public AuthController() { 
-        }
+    {       
 
         [HttpPost]
-        [Route("/v1/register")]
+        [Route("v1/register")]
         [ProducesResponseType(typeof(ObjectResponse<RegisterResponse>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ObjectResponse<RegisterResponse>), StatusCodes.Status200OK)]
         public async Task<ActionResult> Register([FromServices] IAuthService authService, [FromBody] RegisterResponse request)
@@ -28,7 +25,7 @@ namespace PortalIpalEscalas.API.Controllers.auth
         }
 
         [HttpPost]
-        [Route("/v1/login")]
+        [Route("v1/login")]
         [ProducesResponseType(typeof(ObjectResponse<AuthResponse>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ObjectResponse<AuthResponse>), StatusCodes.Status200OK)]
         public async Task<ActionResult> Authentication([FromServices] IAuthService authService, [FromBody] AuthResponse authModel) {

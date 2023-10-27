@@ -1,4 +1,5 @@
-﻿using PortalIpalEscalas.Common.Models;
+﻿using PortalIpalEscalas.Common.Dto;
+using PortalIpalEscalas.Common.Models;
 using PortalIpalEscalas.Infraestructure.Interfaces;
 using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
@@ -16,24 +17,37 @@ namespace PortalIpalEscalas.Domain
 
         public async Task<ObjectResponse<RegisterResponse>> UserRegister(RegisterResponse request)
         {
-            var result = new ObjectResponse<RegisterResponse>();
+            var getValues = new ObjectResponse<RegisterResponse>();
 
-            var getValues = await accountContext.UserRegister(request);
+            getValues = Validator.ValidRegister(request);
+            
+            if(!getValues.Success) 
+                return getValues;
+            
+            var result = await accountContext.UserRegister(getValues.Result);
 
+            if (!result.Success)
+                return result;
 
             return result;
         }
 
 
-        public Task<ObjectResponse<AuthResponse>> AutheService(AuthResponse authModel)
+        public async Task<ObjectResponse<AuthResponse>> AutheService(AuthResponse authModel)
         {            
-            var result = new ObjectResponse<AuthResponse>();
+            var getValues = new ObjectResponse<AuthResponse>();
 
-            if (string.IsNullOrEmpty(authModel.user) || string.IsNullOrEmpty(authModel.password))
-                 return Task.FromResult(new ObjectResponse<AuthResponse> { Success = false, Result = null, Errors = { new InternalError(eMessage.MSG_ERROR_LOGIN, "Usuário ou Senha não informado") }});
+            getValues = Validator.ValidAuth(authModel);
+
+            if (!getValues.Success)
+                return getValues;
+
+            var result = await accountContext.UserLogin(getValues.Result);
+            if (!result.Success)
+                return result;
 
 
-            return Task.FromResult(result);
+            return result;
         }
     }
 }
