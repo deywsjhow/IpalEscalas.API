@@ -6,6 +6,7 @@ namespace PortalIpalEscalas.Common.Models
 {
     public class AuthDB
     {
+        public int id { get; set; }
         public string Nom_Login { get; set; }
         public string Nom_Email { get; set; }
         public string Nome { get; set; }

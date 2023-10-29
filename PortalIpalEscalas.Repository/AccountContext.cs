@@ -105,6 +105,7 @@ namespace PortalIpalEscalas.Repository
                         result.Success = true;
                         result.Result = new AuthResponse
                         {
+                            userId = ret.First().id,
                             user = ret.First().Nom_Login,
                             name = ret.First().Nome,
                             email = ret.First().Nom_Email,

@@ -6,6 +6,7 @@ namespace PortalIpalEscalas.Common.Models
 {
     public class AuthResponse
     {
+        public int userId { get; set; }
         public string user { get; set; }
         public string password { get; set; }
         public string name { get; set; }
