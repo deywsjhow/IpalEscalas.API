@@ -1,17 +1,17 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.OpenApi.Models;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using PortalIpalEscalas.API.Config;
-using PortalIpalEscalas.Common.Models;
 using System;
+using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PortalIpalEscalas.API
 {
@@ -28,9 +28,65 @@ namespace PortalIpalEscalas.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(x =>
+            {
+                x.AddSecurityDefinition("Authentication", new OpenApiSecurityScheme
+                {
+                    Description = "Header de Autorization JWT usando o esquema Bearer. Ex: \"Authorization: Bearer {token}\"",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "auth"
+                });
+
+                x.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "auth"
+                            }
+                        }, new List<string>()
+                    }
+                });
+            });
 
             services.AddInfra(Configuration);
+
+            var host = "https://apiescalasipal-client.cpm.br";
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(bearerOptions =>
+            {
+                var validation = bearerOptions.TokenValidationParameters;
+                var key = new SymmetricSecurityKey(Encoding.Default.GetBytes(Configuration["JwtKey"]));
+                validation.IssuerSigningKey = key;
+                validation.ValidAudience = host;
+                validation.ValidIssuer = host;
+
+                //Valida a assing de um token
+                validation.ValidateIssuerSigningKey = true;
+
+                //Verifica se o token ainda é valido
+                validation.ValidateLifetime = true;
+
+                //Tempo de tolerancia de expiração de um token(caso haja problemas de sincronismo entre diferentes comps envolvidos
+                validation.ClockSkew = TimeSpan.Zero;
+            });
+
+            //Ativa o uso do token como forma de autorizar os recursos deste projeto
+            services.AddAuthorization(auth =>
+            {
+                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser().Build());
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +101,9 @@ namespace PortalIpalEscalas.API
 
             app.UseRouting();
 
+
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -58,7 +117,6 @@ namespace PortalIpalEscalas.API
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Escalas Ipal API");
             });
-
             
         }
     }
