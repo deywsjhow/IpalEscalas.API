@@ -10,5 +10,6 @@ namespace PortalIpalEscalas.Infraestructure.Interfaces
     {
         Task<ObjectResponse<AuthResponse>> AutheService(Login authModel);
         Task<ObjectResponse<RegisterResponse>> UserRegister(RegisterResponse request);
+        Task<ObjectResponse<ChangePass>> ChangePassword(ChangePass changePass);
     }
 }

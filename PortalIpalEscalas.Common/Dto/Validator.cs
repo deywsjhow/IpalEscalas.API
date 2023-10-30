@@ -41,5 +41,21 @@ namespace PortalIpalEscalas.Common.Dto
 
             return obj;
         }
+
+        public static ObjectResponse<ChangePass> ChangePassValid(ChangePass valid)
+        {
+            var obj = new ObjectResponse<ChangePass>();
+
+            if (string.IsNullOrEmpty(valid.Seql_Usuario.ToString()) ||
+               string.IsNullOrEmpty(valid.Nom_Senha) ||
+               string.IsNullOrEmpty(valid.Nom_SenhaOld))
+                return new ObjectResponse<ChangePass> { Success = false, Result = null, Errors = { new InternalError(eMessage.MSG_ERROR_LOGIN, "Propriedade não nulla vazia") } };
+
+            obj.Result = valid;
+            obj.Success = true;
+
+            return obj;
+
+        }
     }
 }

@@ -35,5 +35,18 @@ namespace PortalIpalEscalas.API.Controllers.auth
 
             return Ok(result);
         }
+
+        [HttpPost]
+        [Route("v1/changepassword")]
+        [ProducesResponseType(typeof(ObjectResponse<ChangePass>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ObjectResponse<ChangePass>), StatusCodes.Status200OK)]
+        public async Task<ActionResult> ChangePassword([FromServices] IAuthService authService, [FromBody] ChangePass changePass)
+        {
+            var result = await authService.ChangePassword(changePass);
+            if (!result.Success)
+                return BadRequest(result);
+
+            return Ok(result);
+        }
     }
 }

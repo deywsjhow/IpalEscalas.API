@@ -15,6 +15,7 @@ namespace PortalIpalEscalas.Repository
         private readonly string _connectionString;
         private const string ProcUserRegister = "IPALSP_User";
         private const string ProcUserLogin = "IPALSP_UserLogin";
+        private const string ProcChangePassword = "IPALSP_AtualizaSenha";
         public AccountContext(IConfiguration configuration) {
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
@@ -125,6 +126,49 @@ namespace PortalIpalEscalas.Repository
                     ex.Message.ToString();
                 }
             }
+            return result;
+        }
+
+
+        public async Task<ObjectResponse<ChangePass>> ChangePassword(ChangePass user)
+        {
+            var result = new ObjectResponse<ChangePass>();
+
+            try
+            {
+                using (var connectionDB = this.Connection())
+                {
+                    var p = new DynamicParameters();
+                    p.Add("Seql_Usuario", user.Seql_Usuario);
+                    p.Add("Nom_Senha", user.Nom_Senha);
+                    p.Add("Nom_SenhaOld", user.Nom_SenhaOld);
+                    p.Add("Cod_Erro", null, dbType: DbType.Int32, direction: ParameterDirection.Output, 50);
+                    p.Add("Msg_Erro", null, dbType: DbType.String, direction: ParameterDirection.Output, 50);
+
+                    connectionDB.Open();
+
+                    var ret = await connectionDB.QueryAsync<ChangePass>(ProcChangePassword, p, commandType: CommandType.StoredProcedure);
+
+                    var Cod_Erro = p.Get<Int32>("Cod_Erro");
+                    var Msg_Erro = p.Get<String>("Msg_Erro");
+
+                    if (Cod_Erro != 0)
+                    {
+                        return new ObjectResponse<ChangePass> { Success = false, Result = null, Errors = { new InternalError(eMessage.MSG_ERROR_REGISTER, Msg_Erro) } };
+                    }
+                    else
+                    {
+                        return new ObjectResponse<ChangePass> { Success = true, Result = null, Errors = null };
+
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
+
             return result;
         }
 

@@ -53,5 +53,24 @@ namespace PortalIpalEscalas.Domain
 
             return result;
         }
+
+        public async Task<ObjectResponse<ChangePass>> ChangePassword(ChangePass changePass)
+        {
+            var getValues = new ObjectResponse<ChangePass>();
+
+            getValues = Validator.ChangePassValid(changePass);
+
+            if (!getValues.Success)
+                return new ObjectResponse<ChangePass> { Success = getValues.Success, Errors = getValues.Errors, Result = null };
+
+
+            var result = await accountContext.ChangePassword(getValues.Result);
+            if (!result.Success)
+                return result;
+
+            return result;
+
+
+        }
     }
 }
