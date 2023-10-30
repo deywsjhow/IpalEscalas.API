@@ -17,6 +17,7 @@ namespace PortalIpalEscalas.Common.Models
         public string secondInstrument { get; set; }
         public int loginType { get; set; }
         public string nameType { get; set; }
+        public string accessToken { get; set; }
 
     }
 }

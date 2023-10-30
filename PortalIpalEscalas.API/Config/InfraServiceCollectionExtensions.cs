@@ -12,6 +12,7 @@ namespace PortalIpalEscalas.API.Config
         {
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IAccountContext, AccountContext>();
+            services.AddScoped<IToken, Token>();
         }
     }
 }

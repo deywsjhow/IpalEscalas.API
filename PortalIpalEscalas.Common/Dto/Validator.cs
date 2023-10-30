@@ -27,14 +27,14 @@ namespace PortalIpalEscalas.Common.Dto
         }
 
 
-        public static ObjectResponse<AuthResponse> ValidAuth (AuthResponse valid)
+        public static ObjectResponse<Login> ValidAuth (Login valid)
         {
-            var obj = new ObjectResponse<AuthResponse>();
+            var obj = new ObjectResponse<Login>();
 
             if(string.IsNullOrEmpty(valid.user)     ||
                string.IsNullOrEmpty(valid.password) ||
                string.IsNullOrEmpty(valid.loginType.ToString()))
-                return new ObjectResponse<AuthResponse> { Success = false, Result = null, Errors = { new InternalError(eMessage.MSG_ERROR_LOGIN, "Propriedade não nulla vazia") } };
+                return new ObjectResponse<Login> { Success = false, Result = null, Errors = { new InternalError(eMessage.MSG_ERROR_LOGIN, "Propriedade não nulla vazia") } };
 
             obj.Result = valid;
             obj.Success = true;

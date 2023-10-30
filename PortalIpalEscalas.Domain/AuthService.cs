@@ -9,9 +9,11 @@ namespace PortalIpalEscalas.Domain
     public class AuthService : IAuthService
     {
         private readonly IAccountContext accountContext;
-        public AuthService(IAccountContext _accountContext)
+        private readonly IToken token;
+        public AuthService(IAccountContext _accountContext, IToken token)
         {
             this.accountContext = _accountContext;
+            this.token = token;
         }
 
 
@@ -33,18 +35,20 @@ namespace PortalIpalEscalas.Domain
         }
 
 
-        public async Task<ObjectResponse<AuthResponse>> AutheService(AuthResponse authModel)
+        public async Task<ObjectResponse<AuthResponse>> AutheService(Login authModel)
         {            
-            var getValues = new ObjectResponse<AuthResponse>();
+            var getValues = new ObjectResponse<Login>();
 
             getValues = Validator.ValidAuth(authModel);
 
             if (!getValues.Success)
-                return getValues;
+                return new ObjectResponse<AuthResponse> { Success = getValues.Success, Errors = getValues.Errors, Result = null};
 
             var result = await accountContext.UserLogin(getValues.Result);
             if (!result.Success)
                 return result;
+
+            result.Result.accessToken = token.AddToken(result.Result, authModel.user, authModel.password);
 
 
             return result;

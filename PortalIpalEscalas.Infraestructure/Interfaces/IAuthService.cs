@@ -8,7 +8,7 @@ namespace PortalIpalEscalas.Infraestructure.Interfaces
 {
     public interface IAuthService 
     {
-        Task<ObjectResponse<AuthResponse>> AutheService(AuthResponse authModel);
+        Task<ObjectResponse<AuthResponse>> AutheService(Login authModel);
         Task<ObjectResponse<RegisterResponse>> UserRegister(RegisterResponse request);
     }
 }

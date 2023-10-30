@@ -28,7 +28,7 @@ namespace PortalIpalEscalas.API.Controllers.auth
         [Route("v1/login")]
         [ProducesResponseType(typeof(ObjectResponse<AuthResponse>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ObjectResponse<AuthResponse>), StatusCodes.Status200OK)]
-        public async Task<ActionResult> Authentication([FromServices] IAuthService authService, [FromBody] AuthResponse authModel) {
+        public async Task<ActionResult> Authentication([FromServices] IAuthService authService, [FromBody] Login authModel) {
             var result = await authService.AutheService(authModel);
             if(!result.Success)
                 return BadRequest(result);

@@ -74,7 +74,7 @@ namespace PortalIpalEscalas.Repository
 
 
 
-        public async Task<ObjectResponse<AuthResponse>> UserLogin(AuthResponse userLogin)
+        public async Task<ObjectResponse<AuthResponse>> UserLogin(Login userLogin)
         {
             var result = new ObjectResponse<AuthResponse>();
             using (var connectionDB = this.Connection())

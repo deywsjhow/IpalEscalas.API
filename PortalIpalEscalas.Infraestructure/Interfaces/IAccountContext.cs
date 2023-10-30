@@ -9,6 +9,6 @@ namespace PortalIpalEscalas.Infraestructure.Interfaces
     public interface IAccountContext
     {
         Task<ObjectResponse<RegisterResponse>> UserRegister(RegisterResponse user);
-        Task<ObjectResponse<AuthResponse>> UserLogin(AuthResponse userLogin);
+        Task<ObjectResponse<AuthResponse>> UserLogin(Login userLogin);
     }
 }
