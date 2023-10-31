@@ -4,8 +4,9 @@ using System.Text;
 
 namespace PortalIpalEscalas.Common.Models
 {
-    public class RegisterScaleDB
+    public class SelectScalesDB
     {
+        public int Seql_Escala { get; set; }
         public string Nom_Dirigente { get; set; }
         public string Nom_PrimeiroBack { get; set; }
         public string Nom_SegundoBack { get; set; }

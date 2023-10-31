@@ -35,5 +35,19 @@ namespace PortalIpalEscalas.Domain
 
             return result;
         }
+
+
+        public async Task<ObjectListResponse<RegisterScaleResponse>> SelectScaleForUser(SelectScalerForUserRequest scale)
+        {
+            if (string.IsNullOrEmpty(scale.user) || string.IsNullOrEmpty(scale.dateScaleInit.ToString()) || string.IsNullOrEmpty(scale.dateScaleFinish.ToString()))
+                return new ObjectListResponse<RegisterScaleResponse> { Success = false, ResultList = null, Errors = { new InternalError(eMessage.MSG_ERROR_REGISTERVALUES, "Propriedade não nulla vazia") } };
+
+            var result = await scaleContext.SelectScaleForUser(scale);
+
+            if (!result.Success)
+                return result;
+
+            return result;
+        }
     }
 }

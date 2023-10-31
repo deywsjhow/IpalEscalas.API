@@ -63,14 +63,32 @@ namespace PortalIpalEscalas.Common.Dto
             var obj = new ObjectResponse<RegisterScaleResponse>();
 
             if (string.IsNullOrEmpty(valid.managerName) || string.IsNullOrEmpty(valid.dateScale.ToString()))
-                    return new ObjectResponse<RegisterScaleResponse> { Success = false, Result = null, Errors = { new InternalError(eMessage.MSG_ERROR_REGISTERVALUES, "Propriedade não nulla vazia") } };
+                return new ObjectResponse<RegisterScaleResponse> { Success = false, Result = null, Errors = { new InternalError(eMessage.MSG_ERROR_REGISTERVALUES, "Propriedade não nulla vazia") } };
 
             obj.Result = valid;
             obj.Success = true;
 
             return obj;
-
         }
+       
+        //public static ObjectListResponse<SelectScalerForUserRequest> ValidScaleForUser(SelectScalerForUserRequest valid)
+        //{
+        //    var obj = new ObjectListResponse<SelectScalerForUserRequest>();
+        //    List<SelectScalerForUserRequest> list = new List<SelectScalerForUserRequest>();
+
+        //    if (string.IsNullOrEmpty(valid.user) || string.IsNullOrEmpty(valid.dateScaleInit.ToString()) || string.IsNullOrEmpty(valid.dateScaleFinish.ToString()))
+        //        return new ObjectListResponse<SelectScalerForUserRequest> { Success = false, ResultList = null, Errors = { new InternalError(eMessage.MSG_ERROR_REGISTERVALUES, "Propriedade não nulla vazia") } };
+
+        //    list.Add(valid);
+        //    foreach(var item in  valid)
+
+        //    obj.ResultList.Add(valid);
+        //    obj.Success = true;
+
+        //    return obj;
+
+        //}
+
 
     }
 }

@@ -9,5 +9,6 @@ namespace PortalIpalEscalas.Infraestructure.Interfaces
     public interface IScaleContext
     {
         Task<ObjectResponse<RegisterScaleResponse>> ScaleRegister(RegisterScaleResponse scale);
+        Task<ObjectListResponse<RegisterScaleResponse>> SelectScaleForUser(SelectScalerForUserRequest scale);
     }
 }

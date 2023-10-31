@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PortalIpalEscalas.Common.Models;
 using Dapper;
+using Newtonsoft.Json.Linq;
 
 namespace PortalIpalEscalas.Repository
 {
@@ -15,6 +16,7 @@ namespace PortalIpalEscalas.Repository
     {
         private readonly string _connectionString;
         private const string ProcRegisterScale = "IPALSP_RegistraEscala";
+        private const string ProcSelectScaleForUser = "IPALSP_SelecionaEscalaUsuario";
 
         public ScaleContext(IConfiguration configuration)
         {
@@ -37,7 +39,7 @@ namespace PortalIpalEscalas.Repository
                 {
                     var p = new DynamicParameters();
                     p.Add("Nom_Dirigente", scale.managerName);
-                    p.Add("Nom_PrimeiroBack", scale.fisrtBack);
+                    p.Add("Nom_PrimeiroBack", scale.firstBack);
                     p.Add("Nom_SegundoBack", scale.secondBack);
                     p.Add("Nom_TerceiroBack", scale.thirdBack);
                     p.Add("Nom_MusicoViolao", scale.guitarMusician);
@@ -76,6 +78,78 @@ namespace PortalIpalEscalas.Repository
                 return result;
 
             }
-           
+
+        public async Task<ObjectListResponse<RegisterScaleResponse>> SelectScaleForUser(SelectScalerForUserRequest scale)
+        {
+            var result = new ObjectListResponse<RegisterScaleResponse>();
+
+            using (var connectionDB = this.Connection())
+            {
+                try
+                {
+                    var p = new DynamicParameters();
+                    p.Add("Nom_Usuario", scale.user);
+                    p.Add("Dat_DiaDaEscala_Ini", scale.dateScaleInit);
+                    p.Add("Dat_DiaDaEscala_Fim", scale.dateScaleFinish);      
+                    p.Add("Cod_Erro", null, dbType: DbType.Int32, direction: ParameterDirection.Output, 50);
+                    p.Add("Msg_Erro", null, dbType: DbType.String, direction: ParameterDirection.Output, 50);
+
+                    connectionDB.Open();
+
+                    var ret = await connectionDB.QueryAsync<SelectScalesDB>(ProcSelectScaleForUser, p, commandType: CommandType.StoredProcedure);
+
+                    var Cod_Erro = p.Get<Int32>("Cod_Erro");
+                    var Msg_Erro = p.Get<String>("Msg_Erro");
+
+
+                    if (Cod_Erro != 0)
+                    {
+                        return new ObjectListResponse<RegisterScaleResponse> { Success = false, ResultList = null, Errors = { new InternalError(eMessage.MSG_ERROR_REGISTERVALUES, Msg_Erro) } };
+                    }
+                    else
+                    {
+                        List<SelectScalesDB> values = new List<SelectScalesDB>();
+                        List<RegisterScaleResponse> list = new List<RegisterScaleResponse>();
+                        int count = 0;
+
+                        foreach (var item in ret)
+                        {
+                           values.Add(item);
+                        }
+
+                        foreach(var item in values)
+                        {                                                
+
+                            list.Add(new RegisterScaleResponse() );
+                            list[count].scaleId = item.Seql_Escala;
+                            list[count].managerName = item.Nom_Dirigente;
+                            list[count].firstBack = item.Nom_PrimeiroBack;
+                            list[count].secondBack = item.Nom_SegundoBack;
+                            list[count].thirdBack = item.Nom_TerceiroBack;
+                            list[count].guitarMusician = item.Nom_MusicoViolao;
+                            list[count].drumMusician = item.Nom_MusicoBateria;
+                            list[count].bassMusician = item.Nom_MusicoBaixo;
+                            list[count].keyboardMusician = item.Nom_MusicoTeclado;
+                            list[count].dateScale = item.Dat_DiaDaEscala;
+
+                            count++;
+                        }
+
+
+                        result.ResultList = list;
+                        result.Success = true;                    
+                        result.Errors = null;
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ex.Message.ToString();
+                }
+            }
+            return result;
+
         }
+
     }
+}
