@@ -10,5 +10,6 @@ namespace PortalIpalEscalas.Infraestructure.Interfaces
     {
         Task<ObjectResponse<RegisterScaleResponse>> ScaleRegister(RegisterScaleResponse scale);
         Task<ObjectListResponse<RegisterScaleResponse>> SelectScaleForUser(SelectScalerForUserRequest scale);
+        Task<ObjectListResponse<RegisterScaleResponse>> SelectScaleAnyDate(SelectScalerForAnyDate scale);
     }
 }
