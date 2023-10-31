@@ -42,7 +42,7 @@ namespace PortalIpalEscalas.Common.Dto
             return obj;
         }
 
-        public static ObjectResponse<ChangePass> ChangePassValid(ChangePass valid)
+        public static ObjectResponse<ChangePass> ValidChangePass(ChangePass valid)
         {
             var obj = new ObjectResponse<ChangePass>();
 
@@ -57,5 +57,20 @@ namespace PortalIpalEscalas.Common.Dto
             return obj;
 
         }
+
+        public static ObjectResponse<RegisterScaleResponse> ValidRegisterScale(RegisterScaleResponse valid)
+        {
+            var obj = new ObjectResponse<RegisterScaleResponse>();
+
+            if (string.IsNullOrEmpty(valid.managerName) || string.IsNullOrEmpty(valid.dateScale.ToString()))
+                    return new ObjectResponse<RegisterScaleResponse> { Success = false, Result = null, Errors = { new InternalError(eMessage.MSG_ERROR_REGISTERVALUES, "Propriedade não nulla vazia") } };
+
+            obj.Result = valid;
+            obj.Success = true;
+
+            return obj;
+
+        }
+
     }
 }

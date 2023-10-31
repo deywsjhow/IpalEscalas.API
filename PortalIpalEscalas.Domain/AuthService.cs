@@ -58,7 +58,7 @@ namespace PortalIpalEscalas.Domain
         {
             var getValues = new ObjectResponse<ChangePass>();
 
-            getValues = Validator.ChangePassValid(changePass);
+            getValues = Validator.ValidChangePass(changePass);
 
             if (!getValues.Success)
                 return new ObjectResponse<ChangePass> { Success = getValues.Success, Errors = getValues.Errors, Result = null };
