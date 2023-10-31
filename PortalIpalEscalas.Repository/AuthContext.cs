@@ -10,13 +10,13 @@ using PortalIpalEscalas.Infraestructure.Interfaces;
 
 namespace PortalIpalEscalas.Repository
 {
-    public class AccountContext : IAccountContext
+    public class AuthContext : IAuthtContext
     {
         private readonly string _connectionString;
         private const string ProcUserRegister = "IPALSP_User";
         private const string ProcUserLogin = "IPALSP_UserLogin";
         private const string ProcChangePassword = "IPALSP_AtualizaSenha";
-        public AccountContext(IConfiguration configuration) {
+        public AuthContext(IConfiguration configuration) {
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 

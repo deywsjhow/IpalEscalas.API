@@ -11,7 +11,7 @@ namespace PortalIpalEscalas.API.Config
         public static void AddInfra(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<IAccountContext, AccountContext>();
+            services.AddScoped<IAuthtContext, AuthContext>();
             services.AddScoped<IToken, Token>();
         }
     }

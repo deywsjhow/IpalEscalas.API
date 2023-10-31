@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PortalIpalEscalas.Infraestructure.Interfaces
 {
-    public interface IAccountContext
+    public interface IAuthtContext
     {
         Task<ObjectResponse<RegisterResponse>> UserRegister(RegisterResponse user);
         Task<ObjectResponse<AuthResponse>> UserLogin(Login userLogin);

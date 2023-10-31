@@ -8,11 +8,11 @@ namespace PortalIpalEscalas.Domain
 {
     public class AuthService : IAuthService
     {
-        private readonly IAccountContext accountContext;
+        private readonly IAuthtContext authContext;
         private readonly IToken token;
-        public AuthService(IAccountContext _accountContext, IToken token)
+        public AuthService(IAuthtContext _authContext, IToken token)
         {
-            this.accountContext = _accountContext;
+            this.authContext = _authContext;
             this.token = token;
         }
 
@@ -26,7 +26,7 @@ namespace PortalIpalEscalas.Domain
             if(!getValues.Success) 
                 return getValues;
             
-            var result = await accountContext.UserRegister(getValues.Result);
+            var result = await authContext.UserRegister(getValues.Result);
 
             if (!result.Success)
                 return result;
@@ -44,7 +44,7 @@ namespace PortalIpalEscalas.Domain
             if (!getValues.Success)
                 return new ObjectResponse<AuthResponse> { Success = getValues.Success, Errors = getValues.Errors, Result = null};
 
-            var result = await accountContext.UserLogin(getValues.Result);
+            var result = await authContext.UserLogin(getValues.Result);
             if (!result.Success)
                 return result;
 
@@ -64,7 +64,7 @@ namespace PortalIpalEscalas.Domain
                 return new ObjectResponse<ChangePass> { Success = getValues.Success, Errors = getValues.Errors, Result = null };
 
 
-            var result = await accountContext.ChangePassword(getValues.Result);
+            var result = await authContext.ChangePassword(getValues.Result);
             if (!result.Success)
                 return result;
 
