@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PortalIpalEscalas.Common.Models;
+using PortalIpalEscalas.Common.Models.Utils;
 using PortalIpalEscalas.Infraestructure.Interfaces;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace PortalIpalEscalas.API.Controllers.scale
@@ -10,6 +13,13 @@ namespace PortalIpalEscalas.API.Controllers.scale
     [Route("scale/")]
     public class ScaleController : ControllerBase
     {
+        private readonly IToken token;
+
+
+        public ScaleController(IToken _token) { 
+            this.token = _token;
+        }
+
         [HttpPost]
         [Route("v1/registerscale")]
         [ProducesResponseType(typeof(ObjectResponse<RegisterScaleResponse>), StatusCodes.Status400BadRequest)]
@@ -24,6 +34,7 @@ namespace PortalIpalEscalas.API.Controllers.scale
 
 
         [HttpPost]
+        [Authorize("Bearer")]
         [Route("v1/userscale")]
         [ProducesResponseType(typeof(ObjectListResponse<SelectScalerForUserRequest>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ObjectListResponse<SelectScalerForUserRequest>), StatusCodes.Status200OK)]
@@ -39,10 +50,13 @@ namespace PortalIpalEscalas.API.Controllers.scale
 
         [HttpPost]
         [Route("v1/datescale")]
+        [Authorize("Bearer")]
         [ProducesResponseType(typeof(ObjectListResponse<SelectScalerForAnyDate>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ObjectListResponse<SelectScalerForAnyDate>), StatusCodes.Status200OK)]
         public async Task<ActionResult> SelectScaleForAnyDate([FromServices] IScaleService scaleService, [FromBody] SelectScalerForAnyDate request)
         {
+            ClaimCrypt claim = token.DecryptToken((ClaimsIdentity)User.Identity);
+
             var result = await scaleService.SelectScaleForAnyDate(request);
             if (!result.Success)
                 return BadRequest(result);

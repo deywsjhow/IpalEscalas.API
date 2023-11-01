@@ -64,5 +64,17 @@ namespace PortalIpalEscalas.Domain
             return tokenResponse;
             
         }
+        
+        public ClaimCrypt DecryptToken(ClaimsIdentity identity)
+        {
+            string serialized = Crypto.DecryptStringAES(identity.FindFirst(ClaimTypes.Name).Value, "9LK339M6-04JD-981T-951G572108A4");
+
+            ClaimCrypt claims = (ClaimCrypt)Serializer.Deserialize(serialized, typeof(ClaimCrypt));
+
+            claims.Password = Crypto.DecryptStringAES(claims.Password, "8D@#$!%DSAf7Km");
+
+            return claims;
+
+        }
     }
 }

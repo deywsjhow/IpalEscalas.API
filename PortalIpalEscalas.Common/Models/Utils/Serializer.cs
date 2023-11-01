@@ -14,7 +14,7 @@ namespace PortalIpalEscalas.Common.Models.Utils
             return sw.ToString();
         }
 
-        public static string Deserialize(string xml, System.Type type)
+        public static object Deserialize(string xml, System.Type type)
         {
             StringReader rd = new StringReader(xml);
             XmlSerializer serializer = new XmlSerializer(type);
