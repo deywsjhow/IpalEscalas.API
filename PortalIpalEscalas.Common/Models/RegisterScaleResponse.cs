@@ -11,7 +11,8 @@ namespace PortalIpalEscalas.Common.Models
         public string firstBack { get; set; }
         public string secondBack { get; set; }
         public string thirdBack { get; set; }
-        public string guitarMusician { get; set; }
+        public string guitarMusician { get; set; } //Violão
+        public string guitarristMusician { get; set; } //Guitarra
         public string drumMusician { get; set; }
         public string bassMusician { get; set; }
         public string keyboardMusician { get; set; }

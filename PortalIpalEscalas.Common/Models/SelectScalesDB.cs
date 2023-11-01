@@ -12,6 +12,7 @@ namespace PortalIpalEscalas.Common.Models
         public string Nom_SegundoBack { get; set; }
         public string Nom_TerceiroBack { get; set; }
         public string Nom_MusicoViolao { get; set; }
+        public string Nom_MusicoGuitarra { get; set; }
         public string Nom_MusicoBateria { get; set; }
         public string Nom_MusicoBaixo { get; set; }
         public string Nom_MusicoTeclado { get; set; }

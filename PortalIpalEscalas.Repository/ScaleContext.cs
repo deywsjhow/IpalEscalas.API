@@ -44,6 +44,7 @@ namespace PortalIpalEscalas.Repository
                     p.Add("Nom_SegundoBack", scale.secondBack);
                     p.Add("Nom_TerceiroBack", scale.thirdBack);
                     p.Add("Nom_MusicoViolao", scale.guitarMusician);
+                    p.Add("Nom_MusicoGuitarra", scale.guitarristMusician);
                     p.Add("Nom_MusicoBateria", scale.drumMusician);
                     p.Add("Nom_MusicoBaixo", scale.bassMusician);
                     p.Add("Nom_MusicoTeclado", scale.keyboardMusician);
@@ -76,9 +77,9 @@ namespace PortalIpalEscalas.Repository
                     ex.Message.ToString();
                 }
             }
-                return result;
+            return result;
 
-            }
+        }
 
         public async Task<ObjectListResponse<RegisterScaleResponse>> SelectScaleForUser(SelectScalerForUserRequest scale)
         {
@@ -91,7 +92,7 @@ namespace PortalIpalEscalas.Repository
                     var p = new DynamicParameters();
                     p.Add("Nom_Usuario", scale.user);
                     p.Add("Dat_DiaDaEscala_Ini", scale.dateScaleInit);
-                    p.Add("Dat_DiaDaEscala_Fim", scale.dateScaleFinish);      
+                    p.Add("Dat_DiaDaEscala_Fim", scale.dateScaleFinish);
                     p.Add("Cod_Erro", null, dbType: DbType.Int32, direction: ParameterDirection.Output, 50);
                     p.Add("Msg_Erro", null, dbType: DbType.String, direction: ParameterDirection.Output, 50);
 
@@ -109,25 +110,20 @@ namespace PortalIpalEscalas.Repository
                     }
                     else
                     {
-                        List<SelectScalesDB> values = new List<SelectScalesDB>();
                         List<RegisterScaleResponse> list = new List<RegisterScaleResponse>();
                         int count = 0;
-
+                     
                         foreach (var item in ret)
                         {
-                           values.Add(item);
-                        }
 
-                        foreach(var item in values)
-                        {                                                
-
-                            list.Add(new RegisterScaleResponse() );
+                            list.Add(new RegisterScaleResponse());
                             list[count].scaleId = item.Seql_Escala;
                             list[count].managerName = item.Nom_Dirigente;
                             list[count].firstBack = item.Nom_PrimeiroBack;
                             list[count].secondBack = item.Nom_SegundoBack;
                             list[count].thirdBack = item.Nom_TerceiroBack;
                             list[count].guitarMusician = item.Nom_MusicoViolao;
+                            list[count].guitarristMusician = item.Nom_MusicoGuitarra;
                             list[count].drumMusician = item.Nom_MusicoBateria;
                             list[count].bassMusician = item.Nom_MusicoBaixo;
                             list[count].keyboardMusician = item.Nom_MusicoTeclado;
@@ -138,7 +134,7 @@ namespace PortalIpalEscalas.Repository
 
 
                         result.ResultList = list;
-                        result.Success = true;                    
+                        result.Success = true;
                         result.Errors = null;
 
                     }
@@ -182,16 +178,11 @@ namespace PortalIpalEscalas.Repository
                     }
                     else
                     {
-                        List<SelectScalesDB> values = new List<SelectScalesDB>();
                         List<RegisterScaleResponse> list = new List<RegisterScaleResponse>();
                         int count = 0;
 
+                     
                         foreach (var item in ret)
-                        {
-                            values.Add(item);
-                        }
-
-                        foreach (var item in values)
                         {
 
                             list.Add(new RegisterScaleResponse());
@@ -201,6 +192,7 @@ namespace PortalIpalEscalas.Repository
                             list[count].secondBack = item.Nom_SegundoBack;
                             list[count].thirdBack = item.Nom_TerceiroBack;
                             list[count].guitarMusician = item.Nom_MusicoViolao;
+                            list[count].guitarristMusician = item.Nom_MusicoGuitarra;
                             list[count].drumMusician = item.Nom_MusicoBateria;
                             list[count].bassMusician = item.Nom_MusicoBaixo;
                             list[count].keyboardMusician = item.Nom_MusicoTeclado;

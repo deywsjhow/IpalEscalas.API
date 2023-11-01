@@ -22,6 +22,7 @@ namespace PortalIpalEscalas.API.Controllers.scale
 
         [HttpPost]
         [Route("v1/registerscale")]
+        //[Authorize("Bearer")]
         [ProducesResponseType(typeof(ObjectResponse<RegisterScaleResponse>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ObjectResponse<RegisterScaleResponse>), StatusCodes.Status200OK)]
         public async Task<ActionResult> RegisterScale([FromServices] IScaleService scaleService, [FromBody] RegisterScaleResponse request)
@@ -50,7 +51,7 @@ namespace PortalIpalEscalas.API.Controllers.scale
 
         [HttpPost]
         [Route("v1/datescale")]
-        [Authorize("Bearer")]
+        //[Authorize("Bearer")]
         [ProducesResponseType(typeof(ObjectListResponse<SelectScalerForAnyDate>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ObjectListResponse<SelectScalerForAnyDate>), StatusCodes.Status200OK)]
         public async Task<ActionResult> SelectScaleForAnyDate([FromServices] IScaleService scaleService, [FromBody] SelectScalerForAnyDate request)
