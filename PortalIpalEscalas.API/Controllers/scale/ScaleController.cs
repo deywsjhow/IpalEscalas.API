@@ -55,8 +55,6 @@ namespace PortalIpalEscalas.API.Controllers.scale
         [ProducesResponseType(typeof(ObjectListResponse<SelectScalerForAnyDate>), StatusCodes.Status200OK)]
         public async Task<ActionResult> SelectScaleForAnyDate([FromServices] IScaleService scaleService, [FromBody] SelectScalerForAnyDate request)
         {
-            ClaimCrypt claim = token.DecryptToken((ClaimsIdentity)User.Identity);
-
             var result = await scaleService.SelectScaleForAnyDate(request);
             if (!result.Success)
                 return BadRequest(result);
