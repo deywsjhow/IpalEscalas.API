@@ -18,8 +18,7 @@ namespace PortalIpalEscalas.Common.Models.Utils
         {
             StringReader rd = new StringReader(xml);
             XmlSerializer serializer = new XmlSerializer(type);
-            serializer.Deserialize(rd);
-            return rd.ToString();
+            return serializer.Deserialize(rd);            
         }
     }
 }

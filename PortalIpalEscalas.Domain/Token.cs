@@ -52,8 +52,8 @@ namespace PortalIpalEscalas.Domain
             var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var token = tokenHandler.CreateJwtSecurityToken(
-                       issuer: "https://apiescalasipal-client.cpm.br",
-                       audience: "https://apiescalasipal-client.con.br",
+                       issuer: "https://apiescalasipal-client.com.br",
+                       audience: "https://apiescalasipal-client.com.br",
                        subject: claimsIdentity,
                        notBefore: dateNow,
                        expires: sessionExpires,

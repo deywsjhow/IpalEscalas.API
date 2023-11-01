@@ -56,7 +56,7 @@ namespace PortalIpalEscalas.API
 
             services.AddInfra(Configuration);
 
-            var host = "https://apiescalasipal-client.cpm.br";
+            var host = "https://apiescalasipal-client.com.br";
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
