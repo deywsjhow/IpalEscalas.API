@@ -15,7 +15,6 @@ namespace PortalIpalEscalas.Common.Dto
 
             if (string.IsNullOrEmpty(valid.user)     || 
                 string.IsNullOrEmpty(valid.password) ||
-                string.IsNullOrEmpty(valid.name)     ||
                 string.IsNullOrEmpty(valid.email)    ||
                 string.IsNullOrEmpty(valid.attribuation))
                     return new ObjectResponse<RegisterResponse> { Success = false, Result = null, Errors = { new InternalError(eMessage.MSG_ERROR_REGISTERVALUES, "Propriedade não nulla vazia") } };
@@ -32,8 +31,7 @@ namespace PortalIpalEscalas.Common.Dto
             var obj = new ObjectResponse<Login>();
 
             if(string.IsNullOrEmpty(valid.user)     ||
-               string.IsNullOrEmpty(valid.password) ||
-               string.IsNullOrEmpty(valid.loginType.ToString()))
+               string.IsNullOrEmpty(valid.password))
                 return new ObjectResponse<Login> { Success = false, Result = null, Errors = { new InternalError(eMessage.MSG_ERROR_LOGIN, "Propriedade não nulla vazia") } };
 
             obj.Result = valid;

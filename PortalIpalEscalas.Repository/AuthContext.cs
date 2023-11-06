@@ -37,11 +37,7 @@ namespace PortalIpalEscalas.Repository
                     p.Add("Nom_Login", user.user);
                     p.Add("Nom_Senha", user.password);
                     p.Add("Nom_Email", user.email);
-                    p.Add("Nome", user.name);
                     p.Add("Atribuicao", user.attribuation);
-                    p.Add("TipoVoz", user.voiceType);
-                    p.Add("Instrumento", user.Instrument);
-                    p.Add("SegundoInstrumento", user.secondInstrument);
                     p.Add("Num_TipoLogin", 2);
                     p.Add("Cod_Erro", null, dbType: DbType.Int32, direction: ParameterDirection.Output, 50);
                     p.Add("Msg_Erro", null, dbType: DbType.String, direction: ParameterDirection.Output, 50);
@@ -85,7 +81,6 @@ namespace PortalIpalEscalas.Repository
                     var p = new DynamicParameters();
                     p.Add("Nom_Login", userLogin.user);
                     p.Add("Nom_Senha", userLogin.password);
-                    p.Add("Num_TipoLogin", userLogin.loginType);
                     p.Add("Cod_Erro", null, dbType: DbType.Int32, direction: ParameterDirection.Output, 50);
                     p.Add("Msg_Erro", null, dbType: DbType.String, direction: ParameterDirection.Output, 50);
 
@@ -108,12 +103,8 @@ namespace PortalIpalEscalas.Repository
                         {
                             userId = ret.First().id,
                             user = ret.First().Nom_Login,
-                            name = ret.First().Nome,
                             email = ret.First().Nom_Email,
                             attribuation = ret.First().Atribuicao,
-                            voiceType = ret.First().TipoVoz,
-                            Instrument = ret.First().Instrumento,
-                            secondInstrument = ret.First().SegundoInstrumento,
                             loginType = ret.First().Seql_Tipo,
                             nameType = ret.First().Nom_Tipo
                         };

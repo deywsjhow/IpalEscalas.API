@@ -8,6 +8,5 @@ namespace PortalIpalEscalas.Common.Models
     {
         public string user { get; set; }
         public string password { get; set; }
-        public int loginType { get; set; }
     }
 }
