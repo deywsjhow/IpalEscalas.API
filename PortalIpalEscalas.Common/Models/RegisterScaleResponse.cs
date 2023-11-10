@@ -16,6 +16,6 @@ namespace PortalIpalEscalas.Common.Models
         public string drumMusician { get; set; }
         public string bassMusician { get; set; }
         public string keyboardMusician { get; set; }
-        public DateTime dateScale { get; set; }
+        public string dateScale { get; set; }
     }
 }

@@ -48,7 +48,7 @@ namespace PortalIpalEscalas.Repository
                     p.Add("Nom_MusicoBateria", scale.drumMusician);
                     p.Add("Nom_MusicoBaixo", scale.bassMusician);
                     p.Add("Nom_MusicoTeclado", scale.keyboardMusician);
-                    p.Add("Dat_DiaDaEscala", scale.dateScale);
+                    p.Add("Dat_DiaDaEscala", Convert.ToDateTime(scale.dateScale));
                     p.Add("Cod_Erro", null, dbType: DbType.Int32, direction: ParameterDirection.Output, 50);
                     p.Add("Msg_Erro", null, dbType: DbType.String, direction: ParameterDirection.Output, 50);
 
@@ -127,7 +127,7 @@ namespace PortalIpalEscalas.Repository
                             list[count].drumMusician = item.Nom_MusicoBateria;
                             list[count].bassMusician = item.Nom_MusicoBaixo;
                             list[count].keyboardMusician = item.Nom_MusicoTeclado;
-                            list[count].dateScale = item.Dat_DiaDaEscala;
+                            list[count].dateScale = item.Dat_DiaDaEscala.ToString("dd/MM/yyyy");
 
                             count++;
                         }
@@ -196,7 +196,7 @@ namespace PortalIpalEscalas.Repository
                             list[count].drumMusician = item.Nom_MusicoBateria;
                             list[count].bassMusician = item.Nom_MusicoBaixo;
                             list[count].keyboardMusician = item.Nom_MusicoTeclado;
-                            list[count].dateScale = item.Dat_DiaDaEscala;
+                            list[count].dateScale = item.Dat_DiaDaEscala.ToString("dd/MM/yyyy");
 
                             count++;
                         }
