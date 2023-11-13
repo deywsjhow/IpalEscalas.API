@@ -6,8 +6,8 @@ namespace PortalIpalEscalas.Common.Models
 {
     public class ChangePass
     {
-        public int Seql_Usuario { get; set; }
-        public string Nom_Senha{ get; set; }
-        public string Nom_SenhaOld { get; set; }
+        public int seql_User { get; set; }
+        public string password{ get; set; }
+        public string oldPassword { get; set; }
     }
 }

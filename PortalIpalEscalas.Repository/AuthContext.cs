@@ -130,9 +130,9 @@ namespace PortalIpalEscalas.Repository
                 using (var connectionDB = this.Connection())
                 {
                     var p = new DynamicParameters();
-                    p.Add("Seql_Usuario", user.Seql_Usuario);
-                    p.Add("Nom_Senha", user.Nom_Senha);
-                    p.Add("Nom_SenhaOld", user.Nom_SenhaOld);
+                    p.Add("Seql_Usuario", user.seql_User);
+                    p.Add("Nom_Senha", user.password);
+                    p.Add("Nom_SenhaOld", user.oldPassword);
                     p.Add("Cod_Erro", null, dbType: DbType.Int32, direction: ParameterDirection.Output, 50);
                     p.Add("Msg_Erro", null, dbType: DbType.String, direction: ParameterDirection.Output, 50);
 
