@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication;
 using PortalIpalEscalas.Infraestructure.Interfaces;
 using PortalIpalEscalas.Common.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PortalIpalEscalas.API.Controllers.auth
 {
@@ -37,6 +38,7 @@ namespace PortalIpalEscalas.API.Controllers.auth
         }
 
         [HttpPost]
+        [Authorize("Bearer")]
         [Route("v1/changepassword")]
         [ProducesResponseType(typeof(ObjectResponse<ChangePass>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ObjectResponse<ChangePass>), StatusCodes.Status200OK)]
