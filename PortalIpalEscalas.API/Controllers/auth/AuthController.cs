@@ -5,6 +5,7 @@ using PortalIpalEscalas.Infraestructure.Interfaces;
 using PortalIpalEscalas.Common.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
+using PortalIpalEscalas.Common.Models.Utils;
 
 namespace PortalIpalEscalas.API.Controllers.auth
 {
@@ -50,5 +51,20 @@ namespace PortalIpalEscalas.API.Controllers.auth
 
             return Ok(result);
         }
+
+        [HttpGet]
+        [Route("v1/getusers")]
+        [ProducesResponseType(typeof(ObjectListResponse<User>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ObjectListResponse<User>), StatusCodes.Status200OK)]
+        public async Task<ActionResult> GetUsers([FromServices] IAuthService authService)
+        {
+            var result = await authService.GetUsers();
+            if (!result.Success)
+                return BadRequest(result);
+
+            return Ok(result);
+        }
+
+
     }
 }

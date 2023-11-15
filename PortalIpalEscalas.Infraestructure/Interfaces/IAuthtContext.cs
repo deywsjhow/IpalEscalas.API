@@ -1,4 +1,5 @@
 ﻿using PortalIpalEscalas.Common.Models;
+using PortalIpalEscalas.Common.Models.Utils;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,5 +12,6 @@ namespace PortalIpalEscalas.Infraestructure.Interfaces
         Task<ObjectResponse<RegisterResponse>> UserRegister(RegisterResponse user);
         Task<ObjectResponse<AuthResponse>> UserLogin(Login userLogin);
         Task<ObjectResponse<ChangePass>> ChangePassword(ChangePass user);
+        Task<ObjectListResponse<User>> GetUsers();
     }
 }

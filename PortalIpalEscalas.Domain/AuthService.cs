@@ -1,5 +1,6 @@
 ﻿using PortalIpalEscalas.Common.Dto;
 using PortalIpalEscalas.Common.Models;
+using PortalIpalEscalas.Common.Models.Utils;
 using PortalIpalEscalas.Infraestructure.Interfaces;
 using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
@@ -71,6 +72,15 @@ namespace PortalIpalEscalas.Domain
             return result;
 
 
+        }
+
+        public async Task<ObjectListResponse<User>> GetUsers()
+        {
+
+            var ret = await authContext.GetUsers();         
+            
+
+            return ret;
         }
     }
 }

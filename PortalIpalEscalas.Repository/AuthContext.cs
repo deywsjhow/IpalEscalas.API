@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Threading.Tasks;
 using Dapper;
 using Microsoft.Extensions.Configuration;
 using PortalIpalEscalas.Common.Models;
+using PortalIpalEscalas.Common.Models.Utils;
 using PortalIpalEscalas.Infraestructure.Interfaces;
 
 namespace PortalIpalEscalas.Repository
@@ -16,6 +18,7 @@ namespace PortalIpalEscalas.Repository
         private const string ProcUserRegister = "IPALSP_User";
         private const string ProcUserLogin = "IPALSP_UserLogin";
         private const string ProcChangePassword = "IPALSP_AtualizaSenha";
+        private const string ProcGetUsers = "IPALSP_UserSelect";
         public AuthContext(IConfiguration configuration) {
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
@@ -161,6 +164,55 @@ namespace PortalIpalEscalas.Repository
             }
 
             return result;
+        }
+
+        public async Task<ObjectListResponse<User>> GetUsers()
+        {
+            var users = new ObjectListResponse<User>();
+
+            try
+            {
+                using (var connectionDB = this.Connection())
+                {    
+                  
+
+                    connectionDB.Open();
+
+                    var ret = await connectionDB.QueryAsync<User>(ProcGetUsers, commandType: CommandType.StoredProcedure);
+
+
+                    if (ret == null)
+                    {
+                        return new ObjectListResponse<User> { Success = false, ResultList = null, Errors = { new InternalError(eMessage.MSG_ERROR_REGISTER, "Houve algum problema na ca=hamada") } };
+                    }
+                    else
+                    {
+                        List<User> list = new List<User>();
+                        int count = 0;
+
+
+                        foreach (var item in ret)
+                        {
+
+                            list.Add(new User());
+                            list[count].Nom_Login = item.Nom_Login;
+                            count++;
+                        }
+
+                        users.ResultList = list;
+                        users.Success = true;
+                        users.Errors = null;
+                    }                
+                        
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
+
+            return users;
         }
 
     }
