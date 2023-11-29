@@ -2,7 +2,6 @@
 using PortalIpalEscalas.Common.Models;
 using PortalIpalEscalas.Common.Models.Utils;
 using PortalIpalEscalas.Infraestructure.Interfaces;
-using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 
 namespace PortalIpalEscalas.Domain
@@ -74,13 +73,30 @@ namespace PortalIpalEscalas.Domain
 
         }
 
-        public async Task<ObjectListResponse<User>> GetUsers()
+        public async Task<ObjectListResponse<UserLogin>> GetUsers()
         {
 
-            var ret = await authContext.GetUsers();         
+            var ret = await authContext.GetUsersLogins();         
             
 
             return ret;
+        }
+
+        public async Task<ObjectResponse<object>> SendMessageWpp(SendMessageWpp request)
+        {
+            var getValues = new ObjectResponse<SendMessageWpp>();
+
+            getValues = Validator.ValidMessageWpp(request);
+
+            if (!getValues.Success)
+                return new ObjectResponse<object> { Success = getValues.Success, Errors = getValues.Errors, Result = null };
+
+            var result = await SendMessageWpp(getValues.Result);
+            if (!result.Success)
+                return result;
+
+
+            return result;
         }
     }
 }

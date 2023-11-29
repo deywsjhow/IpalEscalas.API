@@ -54,11 +54,25 @@ namespace PortalIpalEscalas.API.Controllers.auth
 
         [HttpGet]
         [Route("v1/getusers")]
-        [ProducesResponseType(typeof(ObjectListResponse<User>), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ObjectListResponse<User>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ObjectListResponse<UserLogin>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ObjectListResponse<UserLogin>), StatusCodes.Status200OK)]
         public async Task<ActionResult> GetUsers([FromServices] IAuthService authService)
         {
             var result = await authService.GetUsers();
+            if (!result.Success)
+                return BadRequest(result);
+
+            return Ok(result);
+        }
+
+
+        [HttpPost]
+        [Route("v1/sendmessage")]
+        [ProducesResponseType(typeof(ObjectResponse<object>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ObjectResponse<object>), StatusCodes.Status200OK)]
+        public async Task<ActionResult> SendMessageWpp([FromServices] IAuthService authService, SendMessageWpp request)
+        {
+            var result = await authService.SendMessageWpp(request);
             if (!result.Success)
                 return BadRequest(result);
 

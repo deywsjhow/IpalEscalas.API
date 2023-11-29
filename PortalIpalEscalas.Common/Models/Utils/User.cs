@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PortalIpalEscalas.Common.Models.Utils
 {
-    public class User
+    public class UserLogin
     {
         public string Nom_Login { get; set; }
     }

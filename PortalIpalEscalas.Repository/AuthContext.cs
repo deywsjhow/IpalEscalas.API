@@ -18,7 +18,8 @@ namespace PortalIpalEscalas.Repository
         private const string ProcUserRegister = "IPALSP_User";
         private const string ProcUserLogin = "IPALSP_UserLogin";
         private const string ProcChangePassword = "IPALSP_AtualizaSenha";
-        private const string ProcGetUsers = "IPALSP_UserSelect";
+        private const string ProcGetUsersLogins = "IPALSP_UserSelect";
+        private const string ProcGetUsers = "IPALSP_GetUsers";
         public AuthContext(IConfiguration configuration) {
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
@@ -166,9 +167,9 @@ namespace PortalIpalEscalas.Repository
             return result;
         }
 
-        public async Task<ObjectListResponse<User>> GetUsers()
+        public async Task<ObjectListResponse<UserLogin>> GetUsersLogins()
         {
-            var users = new ObjectListResponse<User>();
+            var users = new ObjectListResponse<UserLogin>();
 
             try
             {
@@ -178,23 +179,23 @@ namespace PortalIpalEscalas.Repository
 
                     connectionDB.Open();
 
-                    var ret = await connectionDB.QueryAsync<User>(ProcGetUsers, commandType: CommandType.StoredProcedure);
+                    var ret = await connectionDB.QueryAsync<UserLogin>(ProcGetUsersLogins, commandType: CommandType.StoredProcedure);
 
 
                     if (ret == null)
                     {
-                        return new ObjectListResponse<User> { Success = false, ResultList = null, Errors = { new InternalError(eMessage.MSG_ERROR_REGISTER, "Houve algum problema na ca=hamada") } };
+                        return new ObjectListResponse<UserLogin> { Success = false, ResultList = null, Errors = { new InternalError(eMessage.MSG_ERROR_REGISTER, "Houve algum problema na ca=hamada") } };
                     }
                     else
                     {
-                        List<User> list = new List<User>();
+                        List<UserLogin> list = new List<UserLogin>();
                         int count = 0;
 
 
                         foreach (var item in ret)
                         {
 
-                            list.Add(new User());
+                            list.Add(new UserLogin());
                             list[count].Nom_Login = item.Nom_Login;
                             count++;
                         }
@@ -204,6 +205,61 @@ namespace PortalIpalEscalas.Repository
                         users.Errors = null;
                     }                
                         
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
+
+            return users;
+        }
+
+
+        public async Task<ObjectListResponse<Users>> GetUsers()
+        {
+            var users = new ObjectListResponse<Users>();
+
+            try
+            {
+                using (var connectionDB = this.Connection())
+                {
+                    connectionDB.Open();
+
+                    var ret = await connectionDB.QueryAsync<Users>(ProcGetUsers, commandType: CommandType.StoredProcedure);
+
+
+                    if (ret == null)
+                    {
+                        return new ObjectListResponse<Users> { Success = false, ResultList = null, Errors = { new InternalError(eMessage.MSG_ERROR_REGISTER, "Houve algum problema na ca=hamada") } };
+                    }
+                    else
+                    {
+                        List<Users> list = new List<Users>();
+                        int count = 0;
+
+
+                        foreach (var item in ret)
+                        {
+
+                            list.Add(new Users());
+                            list[count].id = item.id;
+                            list[count].Nom_Login = item.Nom_Login;
+                            list[count].Nom_Senha = item.Nom_Senha;
+                            list[count].Nom_Email = item.Nom_Email;
+                            list[count].Atribuicao = item.Atribuicao;
+                            list[count].Num_TipoLogin = item.Num_TipoLogin;
+                            list[count].Telefone = item.Telefone;
+                            count++;
+                        }
+
+                        users.ResultList = list;
+                        users.Success = true;
+
+                        return users;                      
+                    }
+
                 }
 
             }
