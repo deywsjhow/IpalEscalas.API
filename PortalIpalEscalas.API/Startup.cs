@@ -10,14 +10,12 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using PortalIpalEscalas.API.Config;
 using System;
-using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
 
 namespace PortalIpalEscalas.API
 {
     public class Startup
     {
-        readonly string CorsEnable = "corsEnable";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;

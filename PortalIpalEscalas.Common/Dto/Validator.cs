@@ -87,23 +87,5 @@ namespace PortalIpalEscalas.Common.Dto
 
         //}
 
-
-        public static ObjectResponse<SendMessageWpp> ValidMessageWpp(SendMessageWpp valid)
-        {
-            var obj = new ObjectResponse<SendMessageWpp>();
-
-            if (string.IsNullOrEmpty(valid.phoneNumber.ToString()) ||
-               string.IsNullOrEmpty(valid.user) ||
-               string.IsNullOrEmpty(valid.message))
-                return new ObjectResponse<SendMessageWpp> { Success = false, Result = null, Errors = { new InternalError(eMessage.MSG_ERROR_LOGIN, "Propriedade não nulla vazia") } };
-
-            obj.Result = valid;
-            obj.Success = true;
-
-            return obj;
-
-        }
-
-
     }
 }

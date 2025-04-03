@@ -64,21 +64,5 @@ namespace PortalIpalEscalas.API.Controllers.auth
 
             return Ok(result);
         }
-
-
-        [HttpPost]
-        [Route("v1/sendmessage")]
-        [ProducesResponseType(typeof(ObjectResponse<object>), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ObjectResponse<object>), StatusCodes.Status200OK)]
-        public async Task<ActionResult> SendMessageWpp([FromServices] IAuthService authService, SendMessageWpp request)
-        {
-            var result = await authService.SendMessageWpp(request);
-            if (!result.Success)
-                return BadRequest(result);
-
-            return Ok(result);
-        }
-
-
     }
 }

@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using PortalIpalEscalas.Infraestructure.Interfaces;
 using PortalIpalEscalas.Domain;
 using PortalIpalEscalas.Repository;
-using PortalIpalEscalas.API.Sender;
 
 namespace PortalIpalEscalas.API.Config
 {
@@ -16,7 +15,6 @@ namespace PortalIpalEscalas.API.Config
             services.AddScoped<IToken, Token>();
             services.AddScoped<IScaleContext, ScaleContext>();
             services.AddScoped<IScaleService, ScaleService>();
-            services.AddScoped<SendMessage, SendMessage>();
         }
     }
 }

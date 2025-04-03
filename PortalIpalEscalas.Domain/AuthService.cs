@@ -81,22 +81,5 @@ namespace PortalIpalEscalas.Domain
 
             return ret;
         }
-
-        public async Task<ObjectResponse<object>> SendMessageWpp(SendMessageWpp request)
-        {
-            var getValues = new ObjectResponse<SendMessageWpp>();
-
-            getValues = Validator.ValidMessageWpp(request);
-
-            if (!getValues.Success)
-                return new ObjectResponse<object> { Success = getValues.Success, Errors = getValues.Errors, Result = null };
-
-            var result = await SendMessageWpp(getValues.Result);
-            if (!result.Success)
-                return result;
-
-
-            return result;
-        }
     }
 }
