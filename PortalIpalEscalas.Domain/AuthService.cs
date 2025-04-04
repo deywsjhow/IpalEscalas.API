@@ -6,27 +6,16 @@ using System.Threading.Tasks;
 
 namespace PortalIpalEscalas.Domain
 {
-    public class AuthService : IAuthService
+    public class AuthService(IAuthtContext _authContext, IToken token) : IAuthService
     {
-        private readonly IAuthtContext authContext;
-        private readonly IToken token;
-        public AuthService(IAuthtContext _authContext, IToken token)
-        {
-            this.authContext = _authContext;
-            this.token = token;
-        }
-
-
         public async Task<ObjectResponse<RegisterResponse>> UserRegister(RegisterResponse request)
         {
-            var getValues = new ObjectResponse<RegisterResponse>();
+            ObjectResponse<RegisterResponse> getValues = Validator.ValidRegister(request);
 
-            getValues = Validator.ValidRegister(request);
-            
-            if(!getValues.Success) 
+            if (!getValues.Success) 
                 return getValues;
             
-            var result = await authContext.UserRegister(getValues.Result);
+            var result = await _authContext.UserRegister(getValues.Result);
 
             if (!result.Success)
                 return result;
@@ -37,14 +26,12 @@ namespace PortalIpalEscalas.Domain
 
         public async Task<ObjectResponse<AuthResponse>> AutheService(Login authModel)
         {            
-            var getValues = new ObjectResponse<Login>();
-
-            getValues = Validator.ValidAuth(authModel);
+            ObjectResponse<Login> getValues = Validator.ValidAuth(authModel);
 
             if (!getValues.Success)
                 return new ObjectResponse<AuthResponse> { Success = getValues.Success, Errors = getValues.Errors, Result = null};
 
-            var result = await authContext.UserLogin(getValues.Result);
+            var result = await _authContext.UserLogin(getValues.Result);
             if (!result.Success)
                 return result;
 
@@ -56,15 +43,13 @@ namespace PortalIpalEscalas.Domain
 
         public async Task<ObjectResponse<ChangePass>> ChangePassword(ChangePass changePass)
         {
-            var getValues = new ObjectResponse<ChangePass>();
-
-            getValues = Validator.ValidChangePass(changePass);
+            ObjectResponse<ChangePass>  getValues = Validator.ValidChangePass(changePass);
 
             if (!getValues.Success)
                 return new ObjectResponse<ChangePass> { Success = getValues.Success, Errors = getValues.Errors, Result = null };
 
 
-            var result = await authContext.ChangePassword(getValues.Result);
+            var result = await _authContext.ChangePassword(getValues.Result);
             if (!result.Success)
                 return result;
 
@@ -76,7 +61,7 @@ namespace PortalIpalEscalas.Domain
         public async Task<ObjectListResponse<UserLogin>> GetUsers()
         {
 
-            var ret = await authContext.GetUsersLogins();         
+            var ret = await _authContext.GetUsersLogins();         
             
 
             return ret;

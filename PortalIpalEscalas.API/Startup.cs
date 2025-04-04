@@ -14,14 +14,8 @@ using System.Collections.Generic;
 
 namespace PortalIpalEscalas.API
 {
-    public class Startup
+    public class Startup(IConfiguration Configuration)
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -81,11 +75,9 @@ namespace PortalIpalEscalas.API
             });
 
             //Ativa o uso do token como forma de autorizar os recursos deste projeto
-            services.AddAuthorization(auth =>
-            {
-                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
-                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
-                    .RequireAuthenticatedUser().Build());
+            services.AddAuthorizationBuilder().AddPolicy("Bearer", policy => {
+                policy.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                      .RequireAuthenticatedUser();
             });
 
         }

@@ -12,18 +12,13 @@ using Newtonsoft.Json.Linq;
 
 namespace PortalIpalEscalas.Repository
 {
-    public class ScaleContext : IScaleContext
+    public class ScaleContext(IConfiguration configuration) : IScaleContext
     {
-        private readonly string _connectionString;
+        private readonly string _connectionString = configuration.GetConnectionString("DefaultConnection");
         private const string ProcRegisterScale = "IPALSP_RegistraEscala";
         private const string ProcSelectScaleForUser = "IPALSP_SelecionaEscalaUsuario";
         private const string ProcSelectScaleForAnyDate = "IPALSP_SelecionaEscalaQualquerData";
-
-        public ScaleContext(IConfiguration configuration)
-        {
-            _connectionString = configuration.GetConnectionString("DefaultConnection");
-        }
-
+        
         public IDbConnection Connection()
         {
             return new SqlConnection(_connectionString);
@@ -110,7 +105,7 @@ namespace PortalIpalEscalas.Repository
                     }
                     else
                     {
-                        List<RegisterScaleResponse> list = new List<RegisterScaleResponse>();
+                        List<RegisterScaleResponse> list = default;
                         int count = 0;
                      
                         foreach (var item in ret)
@@ -178,7 +173,7 @@ namespace PortalIpalEscalas.Repository
                     }
                     else
                     {
-                        List<RegisterScaleResponse> list = new List<RegisterScaleResponse>();
+                        List<RegisterScaleResponse> list = default;
                         int count = 0;
 
                      
